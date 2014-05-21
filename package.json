@@ -1,0 +1,36 @@
+{
+  "name": "lbp",
+  "version": "0.1.0",
+  "description": "Pattern detection using Local Binary Patterns algorithm",
+  "main": "./lib/LBP.js",
+  "directories": {
+    "example": "example",
+    "test": "test"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "^1.18.2",
+    "get-pixels": "^1.1.0",
+    "should": "^3.3.1"
+  },
+  "scripts": {
+    "test": "mocha -R spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LukaszKrawczyk/LBP"
+  },
+  "keywords": [
+    "lbp",
+    "ml",
+    "machine learning",
+    "computer vision",
+    "local binary patterns"
+  ],
+  "author": "Lukasz Krawczyk <contact@lukaszkrawczyk.eu> (http://lukaszkrawczyk.eu/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LukaszKrawczyk/LBP/issues"
+  },
+  "homepage": "https://github.com/LukaszKrawczyk/LBP"
+}

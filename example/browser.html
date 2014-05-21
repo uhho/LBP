@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LBP example</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+</head>
+<body>
+    <div>
+        <canvas id="myCanvas"></canvas>
+    </div>
+    
+    <script src="../lib/LBP.js"></script>
+    <script>
+        var canvas = document.getElementById('myCanvas')
+            , imageObj = new Image()
+            , lbp = new LBP()
+            , width
+            , height;
+
+        imageObj.onload = function() {
+            var context = canvas.getContext('2d')
+            context.drawImage(imageObj, 0, 0);
+            var imgd = context.getImageData(0, 0, width, height);
+
+            // get all pixel data
+            var data = new Array(width);
+            for (var i = 0; i < imgd.data.length; i+=4) {
+                var coord = getCanvasCoordinates(i, width);
+                if (!data[coord.x]) data[coord.x] = new Array(height);
+
+                // change to grayscale
+                var grayValue = Math.floor(imgd.data[i] * 0.3 + imgd.data[i + 1] * 0.59 + imgd.data[i + 2] * 0.11);
+                imgd.data[i] = imgd.data[i + 1] = imgd.data[i + 2] = grayValue;
+
+                data[coord.x][coord.y] = grayValue;
+            }
+
+            // replace image with grayscale version
+            context.putImageData(imgd, 0, 0);
+            
+            var distribution = lbp.distribution(data);
+            console.log(distribution);
+        };
+        
+        imageObj.src = './pattern_1.png';
+        width = imageObj.width;
+        height = imageObj.height;
+        document.querySelector("#myCanvas").setAttribute("width",width);
+        document.querySelector("#myCanvas").setAttribute("height",height);
+
+        /**********************************************************************/
+        // helper functions
+
+        function getCanvasCoordinates(n, width) {
+            var x = (n / 4) % width
+                , y = (n / 4 - x ) / width;
+            return { x: x, y: y };
+        }
+    </script>
+</body>
+</html>
