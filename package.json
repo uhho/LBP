@@ -1,6 +1,6 @@
 {
   "name": "lbp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Pattern detection using Local Binary Patterns algorithm",
   "main": "./lib/LBP.js",
   "directories": {

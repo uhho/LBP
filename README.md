@@ -3,6 +3,23 @@ Pattern detection using Local Binary Patterns algorithm
 
 http://en.wikipedia.org/wiki/Local_binary_patterns
 
+## Installation ##
+
+```
+npm install lbp
+```
+
+or
+
+```html
+// put library in your javascript root directory
+<script src="{js directory}/lbp/lib/LBP.js"></script>
+<script>
+    var lbp = new LBP();
+    ...
+</script>
+```
+
 ## Examples ##
 
 ```js

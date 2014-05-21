@@ -191,17 +191,3 @@ function dec2BinString(d) {
 function binString2Dec(str) {
     return parseInt(str, 2);
 }
-
-/**
- * Array rotation
- *
- * @param {Array} arr
- * @param {number} n - steps: positive: step left, negative: step right
- * @return {Array}
- * @access public
- */
-function arrayRotate(arr, n) {
-    arr.unshift.apply(arr, arr.splice(n, arr.length));
-    return arr;
-}
-
