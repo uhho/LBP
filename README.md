@@ -56,7 +56,7 @@ LBP pattern -> Uniform Pattern
 ```
 
 Computed feature will have the following form: `F = [h(U(0)), h(U(1), ..., h(U(P), h(non-uniform))`
-where `h` is an occurence counter, `U` is Uniform Pattern of index `n`, `P` is a number of sampling points.
+where `h` is an occurrence counter, `U` is Uniform Pattern of index `n`, `P` is a number of sampling points.
 Additionally, feature will contain information about number of non-uniform patterns.
 Dimension of this feature is `P+1`.
 
@@ -68,11 +68,12 @@ F = [|H(1, 0)|, |H(1, 1)|, ... |H(1, P/2)|,
      ...
      |H(P-1, 0)|, |H(P-1, 1)|, ... |H(P-1, P/2)|,
      h(U(0,0)), h(U(P,0)), h(non-uniform)]
-     ```
-Feature contain fourier magnitude spectrum and three histogram values - all zeros, all ones and non-uniform patterns.
+```
+
+Feature contains Fourier magnitude spectrum and three histogram values - all zeros, all ones and non-uniform patterns.
 Dimension of the feature vector is `((P-1) * (floor(P/2) + 1)) + 3`.
 
-If you want to desable rotation invariant LBPs, please set `LBP.rotationInvariant` to `false`.
+If you want to disable rotation invariant LBPs, please set `LBP.rotationInvariant` to `false`.
 
 ## Memory
 
