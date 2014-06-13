@@ -11,9 +11,11 @@ npm install lbp
 
 or
 
+Put the library in your JavaScript root directory and add following script tags:
 ```html
-// put library in your javascript root directory
-<script src="{js directory}/lbp/lib/LBP.js"></script>
+// (fft.js is necessary only if you want to use rotation invariant features)
+<script src="{js directory}/lbp/lib/fft.js"></script>
+<script src="{js directory}/lbp/lib/lbp.js"></script>
 <script>
     var lbp = new LBP();
     ...
@@ -38,21 +40,39 @@ console.log(lbp.calculate(1, 1));
 // calculate LBP distribution, contrast and variance for whole image
 console.log(lbp.distribution());
 ```
-## Rotation invariant binary patterns
+## Rotation invariance
 
-By default, library is using rotation independent binary patterns.
+Library is providing two methods for computing rotation invariat features:
+- Rotation invariant uniform binary patterns
+- Rotation invariant features based on histogram transformation
+
+By default, library is using rotation invariant binary patterns.
 It means, all following patterns will be rotated to one uniform pattern:
 ```
+LBP pattern -> Uniform Pattern
 1100 0000 -> 0000 0011
 0000 1100 -> 0000 0011
 1000 0001 -> 0000 0011
 ```
 
-If you want to desable this behaviour, please set `LBP.rotationInvariantLBPs` to `false`.
+Computed feature will have the following form: `F = [h(U(0)), h(U(1), ..., h(U(P), h(non-uniform))`
+where `h` is an occurence counter, `U` is Uniform Pattern of index `n`, `P` is a number of sampling points.
+Additionally, feature will contain information about number of non-uniform patterns.
+Dimension of this feature is `P+1`.
 
-## Rotation invariant histogram
+Second method is rotation invariance based on histogram transformation.
+In this method, histogram of all possible pattern rotations is transformed using Fast Fourier Transform.
+Computed feature will have the following form:
+```
+F = [|H(1, 0)|, |H(1, 1)|, ... |H(1, P/2)|,
+     ...
+     |H(P-1, 0)|, |H(P-1, 1)|, ... |H(P-1, P/2)|,
+     h(U(0,0)), h(U(P,0)), h(non-uniform)]
+     ```
+Feature contain fourier magnitude spectrum and three histogram values - all zeros, all ones and non-uniform patterns.
+Dimension of the feature vector is `((P-1) * (floor(P/2) + 1)) + 3`.
 
-TODO
+If you want to desable rotation invariant LBPs, please set `LBP.rotationInvariant` to `false`.
 
 ## Memory
 
@@ -68,11 +88,10 @@ LBP.memory = new MyAdapter();
 
 ## Known issues
 
-* Does not support rotation invariant histogram (yet)
-* Need more testing with patterns different from (8,1)
-* Contrast and variance values should be quantized
+* Need more testing with patterns with more sampling points or bigger radius
+* Quantization of contrast and variance values
 
-If you'd like to contribute, open an issue ticket or send pull request.
+If you want to contribute, please open an issue ticket or send a pull request.
 
 ## Test
 

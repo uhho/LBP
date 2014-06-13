@@ -1,7 +1,9 @@
-var lbp = require('../lib/LBP')
+var LBP = require('../lib/index.js').LBP
     , getPixels = require("get-pixels");
 
 /******************************************************************************/
+
+var lbp = new LBP();
 
 getImageData('./pattern_2.png', function(err, data) {
     if (err) throw err;
